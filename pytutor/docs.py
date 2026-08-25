@@ -1,9 +1,10 @@
 import re
 import shutil
 import tempfile
+import urllib.error
 import urllib.request
 from pathlib import Path
-from zipfile import ZipFile
+from zipfile import BadZipFile, ZipFile
 
 import click
 
@@ -70,7 +71,7 @@ def update_python_docs(
                                 bar.update(len(chunk))
                     else:
                         f.write(resp.read())
-        except Exception as e:
+        except (urllib.error.URLError, OSError) as e:
             click.echo(click.style(f"Error: failed to download docs: {e}", fg="red"))
             raise click.Abort()
 
@@ -80,7 +81,7 @@ def update_python_docs(
         try:
             with ZipFile(zip_path, "r") as zf:
                 zf.extractall(extract_dir)
-        except Exception as e:
+        except (BadZipFile, OSError) as e:
             click.echo(click.style(f"Error: failed to extract docs: {e}", fg="red"))
             raise click.Abort()
 

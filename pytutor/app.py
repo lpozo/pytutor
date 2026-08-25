@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from textual.app import App, ComposeResult
 from textual.containers import VerticalScroll
 from textual.widgets import Footer, Header, Input, Markdown, ProgressBar
@@ -53,7 +55,7 @@ class PyTutorApp(App):
     TITLE = "PyTutor"
     SUB_TITLE = "Grounded in the official Python docs"
     CSS = CSS
-    BINDINGS = [
+    BINDINGS: ClassVar = [
         ("ctrl+r", "reset", "New conversation"),
         ("ctrl+c", "quit", "Quit"),
     ]
@@ -98,7 +100,7 @@ class PyTutorApp(App):
                 download_progress=self._download_progress,
                 embed_progress=self._embed_progress,
             )
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             self.call_from_thread(self._backend_failed, e)
         else:
             self.call_from_thread(self._backend_ready, retrieval, meta)
@@ -198,7 +200,7 @@ class PyTutorApp(App):
                     parts.append(payload)
                     bubble.update("".join(parts))
                     self._scroll_end()
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             bubble.update(f"**Something went wrong:**\n\n{e}")
         else:
             bubble.update("".join(parts))

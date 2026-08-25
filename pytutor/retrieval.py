@@ -56,9 +56,12 @@ class RetrievalService:
             if source_path:
                 source_path = self._relative_source(source_path)
 
-            if section_filter and source_path:
-                if section_filter.lower() not in str(source_path).lower():
-                    continue
+            if (
+                section_filter
+                and source_path
+                and section_filter.lower() not in str(source_path).lower()
+            ):
+                continue
 
             results.append(
                 {

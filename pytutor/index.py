@@ -103,16 +103,15 @@ def get_index(
 
     if index_exists and not rebuild:
         try:
-            if meta.get("embedding_model") != embed_model.model_name:
-                if not quiet:
-                    click.echo(
-                        click.style(
-                            "Warning: the embedding model in settings.json differs from "
-                            "the one used to build the index. Rebuild with `-r` for "
-                            "accurate results.",
-                            fg="yellow",
-                        )
+            if meta.get("embedding_model") != embed_model.model_name and not quiet:
+                click.echo(
+                    click.style(
+                        "Warning: the embedding model in settings.json differs from "
+                        "the one used to build the index. Rebuild with `-r` for "
+                        "accurate results.",
+                        fg="yellow",
                     )
+                )
             index = _load_index_from_storage(
                 storage_dir, embed_model, meta.get("vector_store")
             )

@@ -36,8 +36,8 @@ def load_settings() -> dict:
         with open(SETTINGS_PATH, "r", encoding="utf-8") as f:
             try:
                 data.update(json.load(f))
-            except Exception as e:
-                raise SettingsError(f"Failed to parse settings.json: {e}")
+            except (json.JSONDecodeError, ValueError, TypeError) as e:
+                raise SettingsError(f"Failed to parse settings.json: {e}") from e
     return data
 
 
