@@ -52,7 +52,7 @@
 - Requires a local Ollama server with:
   - the embedding model from [settings.json](settings.json)
     (default `nomic-embed-text`)
-  - the chat model from [settings.json](settings.json) (default `llama3.2`)
+  - the chat model (default `llama3.2`; see [config.py](pytutor/config.py) for all defaults)
 - `pytutor -u <version>` requires internet access to download docs from
   docs.python.org.
 

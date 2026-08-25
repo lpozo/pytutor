@@ -9,7 +9,7 @@ are synthesized by a local LLM over a local vector index of the docs.
 - Python 3.13+ managed with `uv`.
 - A local [Ollama](https://ollama.com) server with two models:
   - an embedding model (default `nomic-embed-text`)
-  - a chat model (default `qwen3.5:latest`)
+  - a chat model (default `llama3.2`)
 
 ## Install
 
@@ -24,6 +24,9 @@ Downloads the Python docs for a version and rebuilds the vector index:
 ```console
 uv run pytutor -u 3.14
 ```
+
+To rebuild the index from already-downloaded docs, delete `~/.pytutor/storage/`
+and run `pytutor` again (it will auto-detect missing docs and rebuild).
 
 ## Chat
 
@@ -49,9 +52,9 @@ the Ollama host:
 ```json
 {
   "embedding_model": "nomic-embed-text",
-  "chat_model": "qwen3.5:latest",
+  "chat_model": "llama3.2",
   "top_k": 5,
-  "embed_batch_size": 256,
+  "embed_batch_size": 512,
   "ollama_host": "http://localhost:11434"
 }
 ```
