@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 import pytest
 
@@ -24,7 +23,7 @@ def test_load_meta_valid(tmp_path):
 )
 def test_load_meta_raises_on_parse_error(tmp_path, content):
     (tmp_path / META_FILE).write_text(content)
-    with pytest.raises(Exception):
+    with pytest.raises(json.JSONDecodeError):
         _load_meta(tmp_path)
 
 
@@ -71,7 +70,9 @@ def test_write_meta_overwrites_existing(tmp_path):
         pytest.param("model-v2", None, "custom", id="none-version"),
     ],
 )
-def test_write_meta_various_inputs(tmp_path, embedding_model, docs_version, vector_store):
+def test_write_meta_various_inputs(
+    tmp_path, embedding_model, docs_version, vector_store
+):
     _write_meta(tmp_path, embedding_model, docs_version, vector_store)
     result = json.loads((tmp_path / META_FILE).read_text())
     assert result["embedding_model"] == embedding_model

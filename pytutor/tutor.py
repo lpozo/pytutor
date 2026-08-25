@@ -93,18 +93,18 @@ class Tutor:
         chunks, _ = await asyncio.to_thread(self.build_context, question, history)
         messages = self.build_messages(question, chunks, history, docs_version)
         payload = {"model": self.model, "messages": messages, "stream": True}
-        async with httpx.AsyncClient(timeout=None) as client:
-            async with client.stream(
-                "POST", f"{self.host}/api/chat", json=payload
-            ) as resp:
-                resp.raise_for_status()
-                async for line in resp.aiter_lines():
-                    if not line.strip():
-                        continue
-                    data = json.loads(line)
-                    if data.get("done"):
-                        yield "sources", chunks
-                        return
-                    token = data["message"]["content"]
-                    if token:
-                        yield "token", token
+        async with (
+            httpx.AsyncClient(timeout=None) as client,
+            client.stream("POST", f"{self.host}/api/chat", json=payload) as resp,
+        ):
+            resp.raise_for_status()
+            async for line in resp.aiter_lines():
+                if not line.strip():
+                    continue
+                data = json.loads(line)
+                if data.get("done"):
+                    yield "sources", chunks
+                    return
+                token = data["message"]["content"]
+                if token:
+                    yield "token", token

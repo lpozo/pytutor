@@ -1,11 +1,9 @@
 import asyncio
 import time
-from typing import List
 
 import httpx
-from pydantic import ConfigDict, PrivateAttr
-
 from llama_index.core.base.embeddings.base import BaseEmbedding
+from pydantic import ConfigDict, PrivateAttr
 
 
 class OllamaEmbeddingModel(BaseEmbedding):
@@ -46,7 +44,7 @@ class OllamaEmbeddingModel(BaseEmbedding):
     def close(self):
         self._client.close()
 
-    def _embed(self, texts: List[str]) -> List[List[float]]:
+    def _embed(self, texts: list[str]) -> list[list[float]]:
         payload = {"model": self.model_name, "input": texts}
         last_error = None
         for attempt in range(self._retries):
@@ -71,20 +69,20 @@ class OllamaEmbeddingModel(BaseEmbedding):
             f"Ollama embedding failed after {self._retries} retries: {last_error}"
         )
 
-    def _get_text_embedding(self, text: str) -> List[float]:
+    def _get_text_embedding(self, text: str) -> list[float]:
         return self._embed([text])[0]
 
-    def _get_text_embeddings(self, texts: List[str]) -> List[List[float]]:
+    def _get_text_embeddings(self, texts: list[str]) -> list[list[float]]:
         return self._embed(texts)
 
-    def _get_query_embedding(self, query: str) -> List[float]:
+    def _get_query_embedding(self, query: str) -> list[float]:
         return self._get_text_embedding(query)
 
-    async def _aget_query_embedding(self, query: str) -> List[float]:
+    async def _aget_query_embedding(self, query: str) -> list[float]:
         return await asyncio.to_thread(self._get_query_embedding, query)
 
-    async def _aget_text_embedding(self, text: str) -> List[float]:
+    async def _aget_text_embedding(self, text: str) -> list[float]:
         return await asyncio.to_thread(self._get_text_embedding, text)
 
-    async def _aget_text_embeddings(self, texts: List[str]) -> List[List[float]]:
+    async def _aget_text_embeddings(self, texts: list[str]) -> list[list[float]]:
         return await asyncio.to_thread(self._get_text_embeddings, texts)

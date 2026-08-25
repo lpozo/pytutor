@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from pytutor.config import DATA_DIR, STORAGE_DIR, load_settings
 from pytutor.embeddings import OllamaEmbeddingModel
@@ -7,7 +7,7 @@ from pytutor.index import _load_index_from_storage, _load_meta
 
 
 class RetrievalService:
-    def __init__(self, index=None, meta: Optional[dict] = None):
+    def __init__(self, index=None, meta: dict | None = None):
         self.settings = load_settings()
         self.embed_model = OllamaEmbeddingModel(
             model_name=self.settings["embedding_model"],
@@ -43,12 +43,12 @@ class RetrievalService:
         return str(path)
 
     def search(
-        self, query: str, top_k: int = 5, section_filter: Optional[str] = None
-    ) -> List[Dict[str, Any]]:
+        self, query: str, top_k: int = 5, section_filter: str | None = None
+    ) -> list[dict[str, Any]]:
         retriever = self.index.as_retriever(similarity_top_k=top_k)
         nodes = retriever.retrieve(query)
 
-        results: List[Dict[str, Any]] = []
+        results: list[dict[str, Any]] = []
         for node_with_score in nodes:
             node = node_with_score.node
             metadata = getattr(node, "metadata", {}) or {}

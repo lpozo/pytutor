@@ -187,12 +187,14 @@ def test_prepare_user_space_migrates_settings(tmp_pytutor_home, monkeypatch):
 def test_prepare_user_space_idempotent(tmp_pytutor_home):
     prepare_user_space()
     prepare_user_space()
-    assert json.loads(
-        (tmp_pytutor_home / "settings.json").read_text()
-    ) == DEFAULT_SETTINGS
+    assert (
+        json.loads((tmp_pytutor_home / "settings.json").read_text()) == DEFAULT_SETTINGS
+    )
 
 
-def test_prepare_user_space_existing_dirs_not_overwritten(tmp_pytutor_home, monkeypatch):
+def test_prepare_user_space_existing_dirs_not_overwritten(
+    tmp_pytutor_home, monkeypatch
+):
     monkeypatch.setattr("pytutor.config.LEGACY_ROOT", tmp_pytutor_home)
     (tmp_pytutor_home / "data").mkdir()
     (tmp_pytutor_home / "data" / "file.txt").write_text("old")

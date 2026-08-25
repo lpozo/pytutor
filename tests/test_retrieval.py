@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pytest
 
 from pytutor.config import DATA_DIR

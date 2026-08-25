@@ -183,8 +183,7 @@ def test_build_messages_includes_history(tutor, chunks):
 
 def test_build_messages_truncates_long_history(tutor, chunks):
     history = [
-        {"role": "user", "content": f"Q{i}"}
-        for i in range(MAX_HISTORY_TURNS * 2 + 4)
+        {"role": "user", "content": f"Q{i}"} for i in range(MAX_HISTORY_TURNS * 2 + 4)
     ]
     messages = tutor.build_messages("Q", chunks, history=history)
     non_system = [m for m in messages if m["role"] != "system"]
