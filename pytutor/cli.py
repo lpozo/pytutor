@@ -22,23 +22,17 @@ from pytutor.tutor import Tutor
     help="Download Python docs for VERSION (e.g. 3.14), rebuild the index, and exit.",
 )
 @click.option(
-    "--rebuild",
-    "-r",
-    is_flag=True,
-    help="Rebuild the index from the existing docs in data/.",
-)
-@click.option(
     "--ask",
     "-a",
     "ask_question",
     metavar="QUESTION",
     help="Ask a single question and print the answer.",
 )
-def main(update_pydoc, rebuild, ask_question):
+def main(update_pydoc, ask_question):
     """An interactive Python tutor grounded in the official Python docs."""
     prepare_user_space()
     if update_pydoc:
-        if rebuild or ask_question:
+        if ask_question:
             raise click.UsageError(
                 "--update-pydoc/-u is exclusive and cannot be used with other options."
             )
@@ -52,11 +46,6 @@ def main(update_pydoc, rebuild, ask_question):
         settings = load_settings()
     except SettingsError as e:
         raise click.ClickException(str(e))
-
-    if rebuild:
-        get_index(rebuild=True)
-        click.echo("Index rebuilt. Run `pytutor` to start a chat session.")
-        return
 
     if ask_question:
         _ask_one_shot(settings, ask_question)

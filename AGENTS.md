@@ -12,7 +12,6 @@
 - Download docs + build index: `uv run pytutor -u 3.14`
 - Chat (TUI): `uv run pytutor`
 - One-shot question: `uv run pytutor -a "What is a list comprehension?"`
-- Rebuild index from existing docs: `uv run pytutor -r`
 
 ## Architecture Map
 - TUI chat app: [pytutor/app.py](pytutor/app.py)
@@ -26,7 +25,7 @@
 ## Agent Working Rules
 - Keep CLI flags stable in [pytutor/cli.py](pytutor/cli.py):
   - `--update-pydoc/-u` is exclusive; do not break this contract.
-  - `-u` downloads docs + rebuilds index; `-r` rebuilds from existing `data/`.
+  - `-u` downloads docs + rebuilds index.
 - In [pytutor/index.py](pytutor/index.py), preserve persistence semantics:
   - Load from `storage/` when present unless rebuilding.
   - Abort cleanly when `data/` is missing.

@@ -25,12 +25,6 @@ Downloads the Python docs for a version and rebuilds the vector index:
 uv run pytutor -u 3.14
 ```
 
-Rebuild the index from the already-downloaded docs:
-
-```console
-uv run pytutor -r
-```
-
 ## Chat
 
 ```console

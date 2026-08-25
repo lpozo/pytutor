@@ -114,7 +114,7 @@ class PyTutorApp(App):
         self.progress_bar.remove()
         self.status_bubble.update(
             f"**Index unavailable:** {error}\n\n"
-            "Make sure Ollama is running and try again, or rebuild with `pytutor -r`."
+            "Make sure Ollama is running and try again, or rebuild with `pytutor -u`."
         )
 
     def _remove_progress_ui(self) -> None:
