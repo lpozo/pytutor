@@ -23,3 +23,8 @@ pytutor = "pytutor.cli:main"
 
 [tool.setuptools]
 packages = ["pytutor"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
