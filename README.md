@@ -1,5 +1,9 @@
 # pytutor
 
+[![Tests](https://github.com/lpozo/pytutor/actions/workflows/test.yml/badge.svg)](https://github.com/lpozo/pytutor/actions/workflows/test.yml)
+[![Lint](https://github.com/lpozo/pytutor/actions/workflows/lint.yml/badge.svg)](https://github.com/lpozo/pytutor/actions/workflows/lint.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 An interactive Python tutor that grounds its answers in the official Python
 documentation. Chat from the terminal (TUI) or ask one-off questions; answers
 are synthesized by a local LLM over a local vector index of the docs.
@@ -60,3 +64,7 @@ the Ollama host:
 ```
 
 Set the `PYTUTOR_HOME` env var to use a different app directory (useful for testing).
+
+## License
+
+[MIT](LICENSE)
