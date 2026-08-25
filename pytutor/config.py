@@ -63,7 +63,7 @@ def _migrate_legacy_files() -> None:
     settings_target = SETTINGS_PATH
     settings_source = LEGACY_ROOT / "settings.json"
     if not settings_target.exists() and settings_source.exists():
-        shutil.copy2(str(settings_source), str(settings_target))
+        shutil.move(str(settings_source), str(settings_target))
 
 
 def _write_default_settings() -> None:

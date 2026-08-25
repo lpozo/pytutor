@@ -44,7 +44,8 @@
   tests/CI). Paths are centralized in [pytutor/config.py](pytutor/config.py);
   do not hardcode `data/` or `storage/` elsewhere.
 - On first run, legacy `data/`, `storage/` and `settings.json` from the package
-  root are migrated into the user space by `config.prepare_user_space()`.
+  root are migrated into the user space by `config.prepare_user_space()` and the
+  legacy files are removed.
 - Deleting `~/.pytutor/storage/` or `~/.pytutor/data/` is recoverable; regenerate
   via `pytutor -u`.
 

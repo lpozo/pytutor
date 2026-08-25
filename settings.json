@@ -1,7 +1,0 @@
-{
-  "embedding_model": "nomic-embed-text",
-  "chat_model": "qwen3.5:latest",
-  "top_k": 5,
-  "embed_batch_size": 256,
-  "ollama_host": "http://localhost:11434"
-}

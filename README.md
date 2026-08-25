@@ -59,6 +59,4 @@ the Ollama host:
 }
 ```
 
-On first run, `data/`, `storage/` and `settings.json` from the package root are
-migrated into `~/.pytutor/`. Set the `PYTUTOR_HOME` env var to use a different
-app directory (useful for testing).
+Set the `PYTUTOR_HOME` env var to use a different app directory (useful for testing).
